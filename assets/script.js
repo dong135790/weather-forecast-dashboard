@@ -65,14 +65,44 @@ function weatherApi (city) {
     var lon = cityCoords[city][1];
     
     console.log(cityCoords);
-    var api = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid=' + weatherApiKey;
+    var api = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid=' + weatherApiKey + '&units=imperial';
+
     console.log(api);
     fetch(api)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            todayContainer.innerHTML = "";
+            console.log(data.list[0].main.temp);
+            var date = dayjs().format('M/D/YYYY');
+            console.log(date)  
+
+            var weatherIcon = data.list[1].weather.icon;
+            var todayTemperature = data.list[0].main.temp;
+            var todayHumidity = data.list[0].main.humidity;
+            var todayWindMph = data.list[3].wind.speed;
+            console.log(weatherIcon, todayTemperature, todayHumidity, todayWindMph)
+        
+            var iconEl = document.createElement('div')
+            var todayDate = document.createElement('p');
+            var temperatureEl = document.createElement('p');
+            var humidityEl = document.createElement('p');
+            var windEl = document.createElement('p');
+
+            todayContainer.appendChild(iconEl);
+            todayContainer.appendChild(todayDate)
+            todayContainer.appendChild(temperatureEl)
+            todayContainer.appendChild(humidityEl)
+            todayContainer.appendChild(windEl)
+
+            iconEl.textContent = weatherIcon;
+            todayDate.textContent = date;
+            temperatureEl.textContent = todayTemperature;
+            humidityEl.textContent = todayHumidity;
+            windEl.textContent = todayWindMph;
+
+
         });
 }
 

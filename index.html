@@ -7,19 +7,23 @@
     <title>Weather Forecast</title>
     <link rel="stylesheet" href="./assets/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+    <script
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body>
     <main>
         <div class="container"></div>
-        <form id="search-form">
-            <label for="search-form">Search for a City:</label> <br>
-            <input type="text" id="search-input" name="search" placeholder="Enter City">
-                <button type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
-        </form>
+            <form id="search-form">
+                <label for="search-form">Search for a City:</label> <br>
+                <input type="text" id="search-input" name="search" placeholder="Enter City">
+                    <button type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
+            </form>
         <ul id="history"></ul>
     <h2>Today's Forecast</h2>
-    <article id="today">fill</article>
+    <article id="today" class="container">fill</article>
     <article id="forecast">fillssss</article> 
     <script src="assets/script.js"></script>    
     </main>

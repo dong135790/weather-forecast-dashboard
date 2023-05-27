@@ -3,3 +3,8 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
+.searchHistory {
+    display: flex;
+    flex-direction: column;
+}

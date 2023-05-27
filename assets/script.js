@@ -37,6 +37,7 @@ function geoApi () {
             // Create button and set its type to button (default is 'submit') so it won't refresh the screen
             var buttonEl = document.createElement('button');
             buttonEl.setAttribute('type', 'button');
+            buttonEl.setAttribute('class', 'bg-light border');
 
             // Sets the button to city name
             buttonEl.setAttribute('location', data[0].name)

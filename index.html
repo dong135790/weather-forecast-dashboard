@@ -21,9 +21,11 @@
                 <input type="text" id="search-input" name="search" placeholder="Enter City"> <br>
                     <button type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
             </form>
-        <ul id="history"></ul>
+        <div class="container">
+            <ul id="history" class="vstack gap-3"></ul>
+        </div>
     <h2>Today's Forecast</h2>
-    <article id="today" class="container"></article>
+    <article id="today" class="container bg-light border"></article>
     <article id="forecast"></article> 
     <script src="assets/script.js"></script>    
     </main>

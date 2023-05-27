@@ -12,6 +12,8 @@ var searchInput = document.querySelector('#search-input');
 var historyContainer = document.querySelector('#history');
 var todayContainer = document.querySelector('#today');
 var forecastContainer = document.querySelector('#forecast');
+var forecastContainer1 = document.querySelector('#forecast-1');
+
 var searchbtn = document.getElementById('searchBtn');
 
 // Searches up the location of a name and stores in local storage. Lat/Lon values are inside.
@@ -43,16 +45,11 @@ function geoApi () {
             buttonEl.setAttribute('location', data[0].name)
 
             buttonEl.textContent = data[0].name;
-            console.log('1')
 
             buttonEl.onclick = function () {
                 weatherApi(data[0].name)
             }
-            console.log('1')
-
             historyContainer.append(buttonEl);
-            console.log('1')
-
 
             localStorage.setItem("Locations", JSON.stringify(locationHistory));
             weatherApi(data[0].name);
@@ -73,16 +70,17 @@ function weatherApi (city) {
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) {
-           
-        function filterByID(item) {
-            return item.dt_txt.includes('12:00:00') 
-        }
-             
+        .then(function (data) {  
+            function filterByID(item) {
+                return item.dt_txt.includes('12:00:00') 
+            }
+                
             arrByID = data.list.filter(filterByID);
             console.log(arrByID)
-        
-
+            // let childrens = forecastContainer.firstElementChild;
+            // console.log(forecastContainer)
+            // console.log(childrens);
+            forecastContainer.innerHTML = "";
             todayContainer.innerHTML = "";
             console.log(data);
             var date = dayjs().format('M/D/YYYY');
@@ -116,8 +114,10 @@ function weatherApi (city) {
 
             // day 1
 
-            var forecastContainer1 = document.querySelector('#forecast-1');
-            forecastContainer.appendChild(forecastContainer1)
+            var forecastContainer1 = document.createElement('div');
+            forecastContainer1.setAttribute('id', 'forecast-1');
+            forecastContainer.appendChild(forecastContainer1);
+            // forecastContainer.appendChild(forecastContainer1)
             var oneWeatherDescription = arrByID[0].weather[0].description
             var oneWeatherTemp = arrByID[0].main.temp;
             var oneWeatherWind = arrByID[0].wind.speed;
@@ -136,8 +136,10 @@ function weatherApi (city) {
 
             // Day 2
 
-            var forecastContainer2 = document.querySelector('#forecast-2');
-            forecastContainer.appendChild(forecastContainer2)
+            var forecastContainer2 = document.createElement('div');
+            forecastContainer2.setAttribute('id', 'forecast-2');
+            forecastContainer.appendChild(forecastContainer2);
+            // forecastContainer.appendChild(forecastContainer2)
 
             var twoWeatherDescription = arrByID[1].weather[0].description
             var twoWeatherTemp = arrByID[1].main.temp;
@@ -156,8 +158,10 @@ function weatherApi (city) {
             forecastContainer2.appendChild(twoWeatherWindEl)
 
             // Day 3
-            var forecastContainer3 = document.querySelector('#forecast-3');
-            forecastContainer.appendChild(forecastContainer3)
+            var forecastContainer3 = document.createElement('div');
+            forecastContainer3.setAttribute('id', 'forecast-3');
+            forecastContainer.appendChild(forecastContainer3);
+            // forecastContainer.appendChild(forecastContainer3)
 
             var threeWeatherDescription = arrByID[2].weather[0].description
             var threeWeatherTemp = arrByID[2].main.temp;
@@ -176,8 +180,10 @@ function weatherApi (city) {
             forecastContainer3.appendChild(threeWeatherWindEl)
 
             // Day 4
-            var forecastContainer4 = document.querySelector('#forecast-4');
-            forecastContainer.appendChild(forecastContainer4)
+            var forecastContainer4 = document.createElement('div');
+            forecastContainer4.setAttribute('id', 'forecast-4');
+            forecastContainer.appendChild(forecastContainer1);
+            // forecastContainer.appendChild(forecastContainer4)
 
             var fourWeatherDescription = arrByID[3].weather[0].description
             var fourWeatherTemp = arrByID[3].main.temp;

@@ -15,18 +15,24 @@
 </head>
 <body>
     <main>
-        <div class="container"></div>
+        <div class="container col-12 col-md-3 p-3"></div>
             <form id="search-form">
                 <label for="search-form">Search for a City:</label> <br>
                 <input type="text" id="search-input" name="search" placeholder="Enter City"> <br>
-                    <button type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
+                    <button class="bg-dark border text-white" type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
             </form>
-        <div class="container">
-            <ul id="history" class="vstack gap-3"></ul>
+            <div class="container">
+                <ul id="history" class="vstack gap-3"></ul>
         </div>
     <h2>Today's Forecast</h2>
     <article id="today" class="container bg-light border"></article>
-    <article id="forecast"></article> 
+    <article id="forecast" style="display: flex; justify-content: space-evenly;"></article>
+    <section class="border border-3" id="forecast-1"></section>
+    <section class="border border-3" id="forecast-2"></section>
+    <section class="border border-3" id="forecast-3"></section>
+    <section class="border border-3" id="forecast-4"></section>
+    <section class="border border-3" id="forecast-5"></section>
+
     <script src="assets/script.js"></script>    
     </main>
 

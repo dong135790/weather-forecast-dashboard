@@ -74,16 +74,25 @@ function weatherApi (city) {
             return response.json();
         })
         .then(function (data) {
-            todayContainer.innerHTML = "";
-            console.log(data.list[0].main.temp);
-            var date = dayjs().format('M/D/YYYY');
-            console.log(date)  
+           
+        function filterByID(item) {
+            return item.dt_txt.includes('12:00:00') 
+        }
+             
+            arrByID = data.list.filter(filterByID);
+            console.log(arrByID)
+        
 
-            var weatherIcon = data.list[1].weather.icon;
+            todayContainer.innerHTML = "";
+            console.log(data);
+            var date = dayjs().format('M/D/YYYY');
+            console.log(data.list[0].dt_txt);  
+
+            var weatherIcon = data.list[0].weather[0].icon;
             var todayTemperature = data.list[0].main.temp;
             var todayHumidity = data.list[0].main.humidity;
             var todayWindMph = data.list[3].wind.speed;
-            console.log(weatherIcon, todayTemperature, todayHumidity, todayWindMph)
+            console.log(weatherIcon, todayTemperature, todayHumidity, todayWindMph);
         
             var iconEl = document.createElement('div')
             var todayDate = document.createElement('p');
@@ -97,11 +106,127 @@ function weatherApi (city) {
             todayContainer.appendChild(humidityEl)
             todayContainer.appendChild(windEl)
 
-            iconEl.textContent = weatherIcon;
+            // iconEl.textContent = weatherIcon;
             todayDate.textContent = date;
             temperatureEl.textContent = todayTemperature +' Fahrenheit';
             humidityEl.textContent = todayHumidity;
             windEl.textContent = todayWindMph +' Mph';
+
+            console.log(arrByID)
+
+            // day 1
+
+            var forecastContainer1 = document.querySelector('#forecast-1');
+            forecastContainer.appendChild(forecastContainer1)
+            var oneWeatherDescription = arrByID[0].weather[0].description
+            var oneWeatherTemp = arrByID[0].main.temp;
+            var oneWeatherWind = arrByID[0].wind.speed;
+
+            var oneForecastDescriptionEl = document.createElement('p')
+            var oneWeatherTempEl = document.createElement('p')
+            var oneWeatherWindEl = document.createElement('p')
+
+            oneForecastDescriptionEl.textContent = oneWeatherDescription
+            oneWeatherTempEl.textContent = oneWeatherTemp + ' Fahrenheit'
+            oneWeatherWindEl.textContent = oneWeatherWind + ' Mph';
+
+            forecastContainer1.appendChild(oneForecastDescriptionEl)
+            forecastContainer1.appendChild(oneWeatherTempEl)
+            forecastContainer1.appendChild(oneWeatherWindEl)
+
+            // Day 2
+
+            var forecastContainer2 = document.querySelector('#forecast-2');
+            forecastContainer.appendChild(forecastContainer2)
+
+            var twoWeatherDescription = arrByID[1].weather[0].description
+            var twoWeatherTemp = arrByID[1].main.temp;
+            var twoWeatherWind = arrByID[1].wind.speed;
+
+            var twoForecastDescriptionEl = document.createElement('p')
+            var twoWeatherTempEl = document.createElement('p')
+            var twoWeatherWindEl = document.createElement('p')
+
+            twoForecastDescriptionEl.textContent = twoWeatherDescription
+            twoWeatherTempEl.textContent = twoWeatherTemp + ' Fahrenheit'
+            twoWeatherWindEl.textContent = twoWeatherWind + ' Mph';
+
+            forecastContainer2.appendChild(twoForecastDescriptionEl)
+            forecastContainer2.appendChild(twoWeatherTempEl)
+            forecastContainer2.appendChild(twoWeatherWindEl)
+
+            // Day 3
+            var forecastContainer3 = document.querySelector('#forecast-3');
+            forecastContainer.appendChild(forecastContainer3)
+
+            var threeWeatherDescription = arrByID[2].weather[0].description
+            var threeWeatherTemp = arrByID[2].main.temp;
+            var threeWeatherWind = arrByID[2].wind.speed;
+
+            var threeForecastDescriptionEl = document.createElement('p')
+            var threeWeatherTempEl = document.createElement('p')
+            var threeWeatherWindEl = document.createElement('p')
+
+            threeForecastDescriptionEl.textContent = threeWeatherDescription
+            threeWeatherTempEl.textContent = threeWeatherTemp + ' Fahrenheit'
+            threeWeatherWindEl.textContent = threeWeatherWind + ' Mph';
+
+            forecastContainer3.appendChild(threeForecastDescriptionEl)
+            forecastContainer3.appendChild(threeWeatherTempEl)
+            forecastContainer3.appendChild(threeWeatherWindEl)
+
+            // Day 4
+            var forecastContainer4 = document.querySelector('#forecast-4');
+            forecastContainer.appendChild(forecastContainer4)
+
+            var fourWeatherDescription = arrByID[3].weather[0].description
+            var fourWeatherTemp = arrByID[3].main.temp;
+            var fourWeatherWind = arrByID[3].wind.speed;
+
+            var fourForecastDescriptionEl = document.createElement('p')
+            var fourWeatherTempEl = document.createElement('p')
+            var fourWeatherWindEl = document.createElement('p')
+
+            fourForecastDescriptionEl.textContent = fourWeatherDescription
+            fourWeatherTempEl.textContent = fourWeatherTemp + ' Fahrenheit'
+            fourWeatherWindEl.textContent = fourWeatherWind + ' Mph';
+
+            forecastContainer4.appendChild(fourForecastDescriptionEl)
+            forecastContainer4.appendChild(fourWeatherTempEl)
+            forecastContainer4.appendChild(fourWeatherWindEl)
+
+
+            
+    
+
+            
+    
+
+            // var twoForecast = document.createElement('p')
+            // var threeForecast = document.createElement('p')
+            // var fourForecast = document.createElement('p')
+            // var fiveForecast = document.createElement('p')
+
+
+            // var oneWeather = arrByID[0].weather[0].description
+            // var oneWeatherTemp = arrByID[0].main.temp;
+            // console.log(oneWeather)
+
+            // var oneForecast = document.createElement('p')
+            // var twoForecast = document.createElement('p')
+            // var threeForecast = document.createElement('p')
+            // var fourForecast = document.createElement('p')
+            // var fiveForecast = document.createElement('p')
+
+            // forecastContainer.appendChild(oneForecast)
+            // forecastContainer.appendChild(twoForecast)
+            // forecastContainer.appendChild(threeForecast)
+            // forecastContainer.appendChild(fourForecast)
+            // forecastContainer.appendChild(fiveForecast)
+
+            // oneWeatherTemp.textContent = 
+            // oneForecast.textContent = oneWeather;
+
 
 
         });

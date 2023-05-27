@@ -62,8 +62,8 @@ function weatherApi (city) {
     console.log(city)
     var cityCoords = JSON.parse(localStorage.getItem("Locations"));
     var lat = cityCoords[city][0];
-
     var lon = cityCoords[city][1];
+    
     console.log(cityCoords);
     var api = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid=' + weatherApiKey;
     console.log(api);

@@ -98,9 +98,9 @@ function weatherApi (city) {
 
             iconEl.textContent = weatherIcon;
             todayDate.textContent = date;
-            temperatureEl.textContent = todayTemperature;
+            temperatureEl.textContent = todayTemperature +' Fahrenheit';
             humidityEl.textContent = todayHumidity;
-            windEl.textContent = todayWindMph;
+            windEl.textContent = todayWindMph +' Mph';
 
 
         });

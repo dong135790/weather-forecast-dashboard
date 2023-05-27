@@ -71,6 +71,7 @@ function weatherApi (city) {
             return response.json();
         })
         .then(function (data) {  
+            console.log(data)
             function filterByID(item) {
                 return item.dt_txt.includes('12:00:00') 
             }
@@ -86,28 +87,34 @@ function weatherApi (city) {
             var date = dayjs().format('M/D/YYYY');
             console.log(data.list[0].dt_txt);  
 
+            var todayDescription = data.list[0].weather[0].main
+            console.log(todayDescription)
             var weatherIcon = data.list[0].weather[0].icon;
             var todayTemperature = data.list[0].main.temp;
             var todayHumidity = data.list[0].main.humidity;
             var todayWindMph = data.list[3].wind.speed;
             console.log(weatherIcon, todayTemperature, todayHumidity, todayWindMph);
         
+            var todayDescriptionEl = document.createElement('p');
             var iconEl = document.createElement('div')
             var todayDate = document.createElement('p');
             var temperatureEl = document.createElement('p');
             var humidityEl = document.createElement('p');
             var windEl = document.createElement('p');
 
-            todayContainer.appendChild(iconEl);
+
             todayContainer.appendChild(todayDate)
+            todayContainer.appendChild(todayDescriptionEl)
+            todayContainer.appendChild(iconEl);
             todayContainer.appendChild(temperatureEl)
             todayContainer.appendChild(humidityEl)
             todayContainer.appendChild(windEl)
 
             // iconEl.textContent = weatherIcon;
+            todayDescriptionEl.textContent = 'Current Weather Status: '+ todayDescription;
             todayDate.textContent = date;
             temperatureEl.textContent = todayTemperature +' Fahrenheit';
-            humidityEl.textContent = todayHumidity;
+            humidityEl.textContent = 'Humidity: '+todayHumidity+'%';
             windEl.textContent = todayWindMph +' Mph';
 
             console.log(arrByID)
@@ -116,6 +123,7 @@ function weatherApi (city) {
 
             var forecastContainer1 = document.createElement('div');
             forecastContainer1.setAttribute('id', 'forecast-1');
+            forecastContainer1.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer1);
             // forecastContainer.appendChild(forecastContainer1)
             var oneWeatherDescription = arrByID[0].weather[0].description
@@ -138,6 +146,7 @@ function weatherApi (city) {
 
             var forecastContainer2 = document.createElement('div');
             forecastContainer2.setAttribute('id', 'forecast-2');
+            forecastContainer2.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer2);
             // forecastContainer.appendChild(forecastContainer2)
 
@@ -160,6 +169,7 @@ function weatherApi (city) {
             // Day 3
             var forecastContainer3 = document.createElement('div');
             forecastContainer3.setAttribute('id', 'forecast-3');
+            forecastContainer3.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer3);
             // forecastContainer.appendChild(forecastContainer3)
 
@@ -182,6 +192,7 @@ function weatherApi (city) {
             // Day 4
             var forecastContainer4 = document.createElement('div');
             forecastContainer4.setAttribute('id', 'forecast-4');
+            forecastContainer4.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer1);
             // forecastContainer.appendChild(forecastContainer4)
 

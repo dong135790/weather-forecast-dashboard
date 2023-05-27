@@ -9,7 +9,7 @@
 NA
 
 ## Visuals
-![Alt text](assets/images/work-day-scheduler-webpage.png)
+![Alt text](weather-forecast.png)
 ## Installation
 
 NA 

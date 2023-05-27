@@ -1,32 +1,86 @@
 // Api Url and key for weather
 var weatherApiUrl = 'https://api.openweathermap.org';
-var weatherApiKey = '2d9212370a96a1b044194ec9d251b1e2';
-var locationHistory = [];
+var weatherApiKey = '79026700d6d1fb2b065b0cdee07661c3';
+// Stores an array that includes all the names of the cities that were searched for.
+var locationHistory = {
+
+};
 
 // Query Selects the important id
 var searchForm = document.querySelector('#search-form');
 var searchInput = document.querySelector('#search-input');
-var searchHistory = document.querySelector('#history');
+var historyContainer = document.querySelector('#history');
 var todayContainer = document.querySelector('#today');
-var forecastContainer = document.querySelector('forecast');
+var forecastContainer = document.querySelector('#forecast');
+var searchbtn = document.getElementById('searchBtn');
 
-// For search hisotry
-function searchHistory() {
-    searchHistory.innerHTML = '';
+// Searches up the location of a name and stores in local storage. Lat/Lon values are inside.
+function geoApi () {
+    var cityName = document.getElementById('search-input').value;
+    // buggies
+    console.log('Name,', cityName);
+    // Renders the city based on what was typed
+    var ApiUrl = weatherApiUrl + '/geo/1.0/direct?q=' + cityName +'&limit=1&appid=' + weatherApiKey;
 
-    for (var i = locationHistory.length -1; i >= 0; i++) {
-        var buttonEl = document.createElement('button');
-        buttonEl.setAttribute('type', 'button');
+    fetch(ApiUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log('DATA', data)
+            // // logs lat/lon
+            // console.log(data[0].lat, data[0].lon);
 
-        buttonEl.setAttribute('data-search', locationHistory[i]);
-        buttonEl.textContent = locationHistory[i];
-        searchHistory.append(buttonEl);
-    }
+            locationHistory[data[0].name] = [data[0].lat, data[0].lon];
+            console.log('LocationHistory []', locationHistory);
+
+            // Create button and set its type to button (default is 'submit') so it won't refresh the screen
+            var buttonEl = document.createElement('button');
+            buttonEl.setAttribute('type', 'button');
+
+            // Sets the button to city name
+            buttonEl.setAttribute('location', data[0].name)
+
+            buttonEl.textContent = data[0].name;
+            console.log('1')
+
+            buttonEl.onclick = function () {
+                weatherApi(data[0].name)
+            }
+            console.log('1')
+
+            historyContainer.append(buttonEl);
+            console.log('1')
+
+
+            localStorage.setItem("Locations", JSON.stringify(locationHistory));
+            weatherApi(data[0].name);
+        });
 }
 
-function appendSearchHistory(search) {
-    if (locationHistory.indexOf(search) !== -1) {
-        return;
-    }
-    searchHistory.push(search);
+function weatherApi (city) {
+    console.log(city)
+    var cityCoords = JSON.parse(localStorage.getItem("Locations"));
+    var lat = cityCoords[city][0];
+
+    var lon = cityCoords[city][1];
+    console.log(cityCoords);
+    var api = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid=' + weatherApiKey;
+    console.log(api);
+    fetch(api)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        });
+}
+
+function localHistory () {
+    console.log('hello')
+    var searchInput = document.querySelector('#search-input').value;
+    locationHistory.push(searchInput)
+    console.log(searchInput)
+    console.log(locationHistory)
+    
 }

@@ -126,20 +126,21 @@ function weatherApi (city) {
             forecastContainer1.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer1);
 
-
+            var oneHumid = arrByID[0].main.humidity;
             var weatherDate1 = arrByID[0].dt_txt.split(" ");
             var oneDate = weatherDate1[0];
             console.log(oneDate)
-
             var oneWeatherDescription = arrByID[0].weather[0].description
             var oneWeatherTemp = arrByID[0].main.temp;
             var oneWeatherWind = arrByID[0].wind.speed;
 
+            var oneHumidEl = document.createElement('p')
             var onedateEl = document.createElement('p')
             var oneForecastDescriptionEl = document.createElement('p')
             var oneWeatherTempEl = document.createElement('p')
             var oneWeatherWindEl = document.createElement('p')
 
+            oneHumidEl.textContent = 'Humidity: '+oneHumid+'%';
             onedateEl.textContent = oneDate;
             oneForecastDescriptionEl.textContent = oneWeatherDescription
             oneWeatherTempEl.textContent = oneWeatherTemp + ' Fahrenheit'
@@ -148,6 +149,7 @@ function weatherApi (city) {
             forecastContainer1.appendChild(onedateEl);
             forecastContainer1.appendChild(oneForecastDescriptionEl)
             forecastContainer1.appendChild(oneWeatherTempEl)
+            forecastContainer1.appendChild(oneHumidEl)
             forecastContainer1.appendChild(oneWeatherWindEl)
 
             // Day 2
@@ -157,17 +159,20 @@ function weatherApi (city) {
             forecastContainer2.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer2);
 
+            var twoHumid = arrByID[1].main.humidity;
             var weatherDate2 = arrByID[1].dt_txt.split(" ");
             var twoDate = weatherDate2[0];
             var twoWeatherDescription = arrByID[1].weather[0].description
             var twoWeatherTemp = arrByID[1].main.temp;
             var twoWeatherWind = arrByID[1].wind.speed;
 
+            var twoHumidEl = document.createElement('p')
             var twodateEl = document.createElement('p')
             var twoForecastDescriptionEl = document.createElement('p')
             var twoWeatherTempEl = document.createElement('p')
             var twoWeatherWindEl = document.createElement('p')
 
+            twoHumidEl.textContent = 'Humidity: '+twoHumid+'%'
             twodateEl.textContent = twoDate;
             twoForecastDescriptionEl.textContent = twoWeatherDescription
             twoWeatherTempEl.textContent = twoWeatherTemp + ' Fahrenheit'
@@ -176,6 +181,7 @@ function weatherApi (city) {
             forecastContainer2.appendChild(twodateEl);
             forecastContainer2.appendChild(twoForecastDescriptionEl)
             forecastContainer2.appendChild(twoWeatherTempEl)
+            forecastContainer2.appendChild(twoHumidEl)
             forecastContainer2.appendChild(twoWeatherWindEl)
 
             // Day 3
@@ -184,17 +190,20 @@ function weatherApi (city) {
             forecastContainer3.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer3);
 
+            var threeHumid = arrByID[2].main.humidity;
             var weatherDate3 = arrByID[2].dt_txt.split(" ");
             var threeDate = weatherDate3[0];
             var threeWeatherDescription = arrByID[2].weather[0].description
             var threeWeatherTemp = arrByID[2].main.temp;
             var threeWeatherWind = arrByID[2].wind.speed;
 
+            var threeHumidEl = document.createElement('p')
             var threedateEl = document.createElement('p')
             var threeForecastDescriptionEl = document.createElement('p')
             var threeWeatherTempEl = document.createElement('p')
             var threeWeatherWindEl = document.createElement('p')
 
+            threeHumidEl.textContent = 'Humidity: '+threeHumid+'%';
             threedateEl.textContent = threeDate;
             threeForecastDescriptionEl.textContent = threeWeatherDescription
             threeWeatherTempEl.textContent = threeWeatherTemp + ' Fahrenheit'
@@ -203,6 +212,7 @@ function weatherApi (city) {
             forecastContainer3.appendChild(threedateEl);
             forecastContainer3.appendChild(threeForecastDescriptionEl)
             forecastContainer3.appendChild(threeWeatherTempEl)
+            forecastContainer3.appendChild(threeHumidEl)
             forecastContainer3.appendChild(threeWeatherWindEl)
 
             // Day 4
@@ -211,17 +221,20 @@ function weatherApi (city) {
             forecastContainer4.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer4);
 
+            var fourHumid = arrByID[3].main.humidity;
             var weatherDate4 = arrByID[3].dt_txt.split(" ");
             var fourDate = weatherDate4[0];
             var fourWeatherDescription = arrByID[3].weather[0].description
             var fourWeatherTemp = arrByID[3].main.temp;
             var fourWeatherWind = arrByID[3].wind.speed;
 
+            var fourHumidEl = document.createElement('p')
             var fourdateEl = document.createElement('p')
             var fourForecastDescriptionEl = document.createElement('p')
             var fourWeatherTempEl = document.createElement('p')
             var fourWeatherWindEl = document.createElement('p')
 
+            fourHumidEl.textContent = 'Humidity: '+fourHumid+'%'
             fourdateEl.textContent = fourDate;
             fourForecastDescriptionEl.textContent = fourWeatherDescription
             fourWeatherTempEl.textContent = fourWeatherTemp + ' Fahrenheit'
@@ -230,6 +243,7 @@ function weatherApi (city) {
             forecastContainer4.appendChild(fourdateEl);
             forecastContainer4.appendChild(fourForecastDescriptionEl)
             forecastContainer4.appendChild(fourWeatherTempEl)
+            forecastContainer4.appendChild(fourHumidEl)
             forecastContainer4.appendChild(fourWeatherWindEl)
 
 
@@ -239,17 +253,21 @@ function weatherApi (city) {
             forecastContainer5.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer5);
 
+
             var weatherDate5 = arrByID[4].dt_txt.split(" ");
+            var fiveHumid = arrByID[4].main.humidity;
             var fiveDate = weatherDate5[0];
             var fiveWeatherDescription = arrByID[4].weather[0].description
             var fiveWeatherTemp = arrByID[4].main.temp;
             var fiveWeatherWind = arrByID[4].wind.speed;
 
+            var fiveHumidEl = document.createElement('p')
             var fivedateEl = document.createElement('p')
             var fiveForecastDescriptionEl = document.createElement('p')
             var fiveWeatherTempEl = document.createElement('p')
             var fiveWeatherWindEl = document.createElement('p')
 
+            fiveHumidEl.textContent = 'Humidity: '+fiveHumid +'%'
             fivedateEl.textContent = fiveDate;
             fiveForecastDescriptionEl.textContent = fiveWeatherDescription
             fiveWeatherTempEl.textContent = fiveWeatherTemp + ' Fahrenheit'
@@ -258,6 +276,7 @@ function weatherApi (city) {
             forecastContainer5.appendChild(fivedateEl);
             forecastContainer5.appendChild(fiveForecastDescriptionEl)
             forecastContainer5.appendChild(fiveWeatherTempEl)
+            forecastContainer5.appendChild(fiveHumidEl)
             forecastContainer5.appendChild(fiveWeatherWindEl)
 
         });

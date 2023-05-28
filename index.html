@@ -19,15 +19,17 @@
             <form id="search-form">
                 <label for="search-form">Search for a City:</label> <br>
                 <input type="text" id="search-input" name="search" placeholder="Enter City"> <br>
-                    <button class="bg-dark border text-white" type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button>
+                    <button class="bg-dark border text-white" type="button" id="searchBtn" autocapitalize="words" onclick="geoApi()">Search</button> <br>
             </form>
-            <div class="container">
-                <ul id="history" class="vstack gap-3"></ul>
+            <div class="container" id="historybuttons">
+                <div id="history" class="vstack gap-3"></div>
             </div>
         </div>
-        <section>
+        <section style="display: flex; align-items: center; flex-direction: column;">
             <h2>Today's Forecast</h2>
             <article id="today" class="container bg-light border"></article>
+        </section>
+        <section>
             <div id="forecast" style="display: flex; justify-content: space-evenly;"></div>
         </section>
     <script src="assets/script.js"></script>    

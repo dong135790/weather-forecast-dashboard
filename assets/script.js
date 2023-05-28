@@ -13,6 +13,8 @@ var historyContainer = document.querySelector('#history');
 var todayContainer = document.querySelector('#today');
 var forecastContainer = document.querySelector('#forecast');
 var forecastContainer1 = document.querySelector('#forecast-1');
+var historyButtonEl = document.querySelector('#historybuttons');
+
 
 var searchbtn = document.getElementById('searchBtn');
 
@@ -231,7 +233,7 @@ function weatherApi (city) {
             forecastContainer4.appendChild(fourWeatherWindEl)
 
 
-            // Day 4
+            // Day 5
             var forecastContainer5 = document.createElement('div');
             forecastContainer5.setAttribute('id', 'forecast-5');
             forecastContainer5.setAttribute('class', 'border border-3');

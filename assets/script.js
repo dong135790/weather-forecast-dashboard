@@ -116,7 +116,7 @@ function weatherApi (city) {
             todayDate.textContent = date;
             temperatureEl.textContent = todayTemperature +' Fahrenheit';
             humidityEl.textContent = 'Humidity: '+todayHumidity+'%';
-            windEl.textContent = todayWindMph +' Mph';
+            windEl.textContent = 'Wind: '+todayWindMph +' Mph';
 
             console.log(arrByID)
 
@@ -144,7 +144,7 @@ function weatherApi (city) {
             onedateEl.textContent = oneDate;
             oneForecastDescriptionEl.textContent = oneWeatherDescription
             oneWeatherTempEl.textContent = oneWeatherTemp + ' Fahrenheit'
-            oneWeatherWindEl.textContent = oneWeatherWind + ' Mph';
+            oneWeatherWindEl.textContent = 'Wind: '+oneWeatherWind + ' Mph';
 
             forecastContainer1.appendChild(onedateEl);
             forecastContainer1.appendChild(oneForecastDescriptionEl)
@@ -176,7 +176,7 @@ function weatherApi (city) {
             twodateEl.textContent = twoDate;
             twoForecastDescriptionEl.textContent = twoWeatherDescription
             twoWeatherTempEl.textContent = twoWeatherTemp + ' Fahrenheit'
-            twoWeatherWindEl.textContent = twoWeatherWind + ' Mph';
+            twoWeatherWindEl.textContent = 'Wind: '+twoWeatherWind + ' Mph';
 
             forecastContainer2.appendChild(twodateEl);
             forecastContainer2.appendChild(twoForecastDescriptionEl)
@@ -207,7 +207,7 @@ function weatherApi (city) {
             threedateEl.textContent = threeDate;
             threeForecastDescriptionEl.textContent = threeWeatherDescription
             threeWeatherTempEl.textContent = threeWeatherTemp + ' Fahrenheit'
-            threeWeatherWindEl.textContent = threeWeatherWind + ' Mph';
+            threeWeatherWindEl.textContent = 'Wind: '+threeWeatherWind + ' Mph';
 
             forecastContainer3.appendChild(threedateEl);
             forecastContainer3.appendChild(threeForecastDescriptionEl)
@@ -238,7 +238,7 @@ function weatherApi (city) {
             fourdateEl.textContent = fourDate;
             fourForecastDescriptionEl.textContent = fourWeatherDescription
             fourWeatherTempEl.textContent = fourWeatherTemp + ' Fahrenheit'
-            fourWeatherWindEl.textContent = fourWeatherWind + ' Mph';
+            fourWeatherWindEl.textContent = 'Wind: '+fourWeatherWind + ' Mph';
 
             forecastContainer4.appendChild(fourdateEl);
             forecastContainer4.appendChild(fourForecastDescriptionEl)
@@ -271,7 +271,7 @@ function weatherApi (city) {
             fivedateEl.textContent = fiveDate;
             fiveForecastDescriptionEl.textContent = fiveWeatherDescription
             fiveWeatherTempEl.textContent = fiveWeatherTemp + ' Fahrenheit'
-            fiveWeatherWindEl.textContent = fiveWeatherWind + ' Mph';
+            fiveWeatherWindEl.textContent = 'Wind: '+fiveWeatherWind + ' Mph';
 
             forecastContainer5.appendChild(fivedateEl);
             forecastContainer5.appendChild(fiveForecastDescriptionEl)

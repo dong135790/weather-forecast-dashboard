@@ -18,7 +18,7 @@ NA
     Weather forecast dashboard currently displays the current date and includes temperature (in fahrenheit), humidit, and wind in mph.
 ## Roadmap
 
-
+    Implement icons so there can be visual representations of the weather at the time. 
 ## Contributing
 
 Not currently open to contributions at this time.

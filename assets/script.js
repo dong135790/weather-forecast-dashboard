@@ -85,7 +85,6 @@ function weatherApi (city) {
             todayContainer.innerHTML = "";
             console.log(data);
             var date = dayjs().format('M/D/YYYY');
-            console.log(data.list[0].dt_txt);  
 
             var todayDescription = data.list[0].weather[0].main
             console.log(todayDescription)
@@ -120,24 +119,31 @@ function weatherApi (city) {
             console.log(arrByID)
 
             // day 1
-
             var forecastContainer1 = document.createElement('div');
             forecastContainer1.setAttribute('id', 'forecast-1');
             forecastContainer1.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer1);
-            // forecastContainer.appendChild(forecastContainer1)
+
+
+            var weatherDate1 = arrByID[0].dt_txt.split(" ");
+            var oneDate = weatherDate1[0];
+            console.log(oneDate)
+
             var oneWeatherDescription = arrByID[0].weather[0].description
             var oneWeatherTemp = arrByID[0].main.temp;
             var oneWeatherWind = arrByID[0].wind.speed;
 
+            var onedateEl = document.createElement('p')
             var oneForecastDescriptionEl = document.createElement('p')
             var oneWeatherTempEl = document.createElement('p')
             var oneWeatherWindEl = document.createElement('p')
 
+            onedateEl.textContent = oneDate;
             oneForecastDescriptionEl.textContent = oneWeatherDescription
             oneWeatherTempEl.textContent = oneWeatherTemp + ' Fahrenheit'
             oneWeatherWindEl.textContent = oneWeatherWind + ' Mph';
 
+            forecastContainer1.appendChild(onedateEl);
             forecastContainer1.appendChild(oneForecastDescriptionEl)
             forecastContainer1.appendChild(oneWeatherTempEl)
             forecastContainer1.appendChild(oneWeatherWindEl)
@@ -148,20 +154,24 @@ function weatherApi (city) {
             forecastContainer2.setAttribute('id', 'forecast-2');
             forecastContainer2.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer2);
-            // forecastContainer.appendChild(forecastContainer2)
 
+            var weatherDate2 = arrByID[1].dt_txt.split(" ");
+            var twoDate = weatherDate2[0];
             var twoWeatherDescription = arrByID[1].weather[0].description
             var twoWeatherTemp = arrByID[1].main.temp;
             var twoWeatherWind = arrByID[1].wind.speed;
 
+            var twodateEl = document.createElement('p')
             var twoForecastDescriptionEl = document.createElement('p')
             var twoWeatherTempEl = document.createElement('p')
             var twoWeatherWindEl = document.createElement('p')
 
+            twodateEl.textContent = twoDate;
             twoForecastDescriptionEl.textContent = twoWeatherDescription
             twoWeatherTempEl.textContent = twoWeatherTemp + ' Fahrenheit'
             twoWeatherWindEl.textContent = twoWeatherWind + ' Mph';
 
+            forecastContainer2.appendChild(twodateEl);
             forecastContainer2.appendChild(twoForecastDescriptionEl)
             forecastContainer2.appendChild(twoWeatherTempEl)
             forecastContainer2.appendChild(twoWeatherWindEl)
@@ -171,20 +181,24 @@ function weatherApi (city) {
             forecastContainer3.setAttribute('id', 'forecast-3');
             forecastContainer3.setAttribute('class', 'border border-3');
             forecastContainer.appendChild(forecastContainer3);
-            // forecastContainer.appendChild(forecastContainer3)
 
+            var weatherDate3 = arrByID[2].dt_txt.split(" ");
+            var threeDate = weatherDate3[0];
             var threeWeatherDescription = arrByID[2].weather[0].description
             var threeWeatherTemp = arrByID[2].main.temp;
             var threeWeatherWind = arrByID[2].wind.speed;
 
+            var threedateEl = document.createElement('p')
             var threeForecastDescriptionEl = document.createElement('p')
             var threeWeatherTempEl = document.createElement('p')
             var threeWeatherWindEl = document.createElement('p')
 
+            threedateEl.textContent = threeDate;
             threeForecastDescriptionEl.textContent = threeWeatherDescription
             threeWeatherTempEl.textContent = threeWeatherTemp + ' Fahrenheit'
             threeWeatherWindEl.textContent = threeWeatherWind + ' Mph';
 
+            forecastContainer3.appendChild(threedateEl);
             forecastContainer3.appendChild(threeForecastDescriptionEl)
             forecastContainer3.appendChild(threeWeatherTempEl)
             forecastContainer3.appendChild(threeWeatherWindEl)
@@ -193,58 +207,56 @@ function weatherApi (city) {
             var forecastContainer4 = document.createElement('div');
             forecastContainer4.setAttribute('id', 'forecast-4');
             forecastContainer4.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer1);
-            // forecastContainer.appendChild(forecastContainer4)
+            forecastContainer.appendChild(forecastContainer4);
 
+            var weatherDate4 = arrByID[3].dt_txt.split(" ");
+            var fourDate = weatherDate4[0];
             var fourWeatherDescription = arrByID[3].weather[0].description
             var fourWeatherTemp = arrByID[3].main.temp;
             var fourWeatherWind = arrByID[3].wind.speed;
 
+            var fourdateEl = document.createElement('p')
             var fourForecastDescriptionEl = document.createElement('p')
             var fourWeatherTempEl = document.createElement('p')
             var fourWeatherWindEl = document.createElement('p')
 
+            fourdateEl.textContent = fourDate;
             fourForecastDescriptionEl.textContent = fourWeatherDescription
             fourWeatherTempEl.textContent = fourWeatherTemp + ' Fahrenheit'
             fourWeatherWindEl.textContent = fourWeatherWind + ' Mph';
 
+            forecastContainer4.appendChild(fourdateEl);
             forecastContainer4.appendChild(fourForecastDescriptionEl)
             forecastContainer4.appendChild(fourWeatherTempEl)
             forecastContainer4.appendChild(fourWeatherWindEl)
 
 
-            
-    
+            // Day 4
+            var forecastContainer5 = document.createElement('div');
+            forecastContainer5.setAttribute('id', 'forecast-5');
+            forecastContainer5.setAttribute('class', 'border border-3');
+            forecastContainer.appendChild(forecastContainer5);
 
-            
-    
+            var weatherDate5 = arrByID[4].dt_txt.split(" ");
+            var fiveDate = weatherDate5[0];
+            var fiveWeatherDescription = arrByID[4].weather[0].description
+            var fiveWeatherTemp = arrByID[4].main.temp;
+            var fiveWeatherWind = arrByID[4].wind.speed;
 
-            // var twoForecast = document.createElement('p')
-            // var threeForecast = document.createElement('p')
-            // var fourForecast = document.createElement('p')
-            // var fiveForecast = document.createElement('p')
+            var fivedateEl = document.createElement('p')
+            var fiveForecastDescriptionEl = document.createElement('p')
+            var fiveWeatherTempEl = document.createElement('p')
+            var fiveWeatherWindEl = document.createElement('p')
 
+            fivedateEl.textContent = fiveDate;
+            fiveForecastDescriptionEl.textContent = fiveWeatherDescription
+            fiveWeatherTempEl.textContent = fiveWeatherTemp + ' Fahrenheit'
+            fiveWeatherWindEl.textContent = fiveWeatherWind + ' Mph';
 
-            // var oneWeather = arrByID[0].weather[0].description
-            // var oneWeatherTemp = arrByID[0].main.temp;
-            // console.log(oneWeather)
-
-            // var oneForecast = document.createElement('p')
-            // var twoForecast = document.createElement('p')
-            // var threeForecast = document.createElement('p')
-            // var fourForecast = document.createElement('p')
-            // var fiveForecast = document.createElement('p')
-
-            // forecastContainer.appendChild(oneForecast)
-            // forecastContainer.appendChild(twoForecast)
-            // forecastContainer.appendChild(threeForecast)
-            // forecastContainer.appendChild(fourForecast)
-            // forecastContainer.appendChild(fiveForecast)
-
-            // oneWeatherTemp.textContent = 
-            // oneForecast.textContent = oneWeather;
-
-
+            forecastContainer5.appendChild(fivedateEl);
+            forecastContainer5.appendChild(fiveForecastDescriptionEl)
+            forecastContainer5.appendChild(fiveWeatherTempEl)
+            forecastContainer5.appendChild(fiveWeatherWindEl)
 
         });
 }

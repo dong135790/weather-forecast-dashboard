@@ -12,7 +12,7 @@ The goal of this application is to create an interactive Weather Forecast Dashbo
 [Weather Dashboard](https://dong135790.github.io/weather-forecast-dashboard/)
 
 ### Screenshot
-![Deployed Application Screenshot](./assets/images/weather-forecast-dashboard-screenshot.png)
+![Deployed Application Screenshot](./assets/images/weather-forecast-dashboard.png)
 ## Usage
 - To enter a city name, click on the text input field and type in valid city name
 - To search for city, click search button below input field

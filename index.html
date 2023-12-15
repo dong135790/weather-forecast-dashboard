@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Forecast Dashboard</title>
-   <!-- add bootstrap in theme cerulean -->
+    <!-- add bootstrap in theme cerulean -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" />
-  </head>
+</head>
 
-  <body class="bg-info row ">
+<body class="bg-info row">
     <!-- create page header -->
-    <header >
+    <header>
         <h1 class="col-12 bg-info text-light text-center p-3 mb-0">
-        Weather Dashboard
-      </h1>
-     </header>
-     <!-- create main section for content -->
-    <main class="col-12 bg-light h-100 mx-7 d-flex flex-wrap justify-content-space-evenly" style="min-height: 100vh" >
+            Weather Dashboard
+        </h1>
+    </header>
+    <!-- create main section for content -->
+    <main class="col-12 bg-light h-100 mx-7 d-flex flex-wrap justify-content-space-evenly" style="min-height: 100vh">
         <!-- create search form to always be present on screen  -->
-      <form class="col-12 p-5" id="search-form">
-        <fieldset >
-          <legend>Search for a City:</legend>
-          <div>
-            <input autocomplete="off" type="text" id="TextInput" class="form-control"
-              placeholder="City Name"/>
-          </div>
-          <button id="search-btn" type="submit" class="btn btn-info col-12 my-3">
-            Search
-          </button>
-          <div id="past-searches">
-            <h4 class="text-info text-center">Past Searches</h4>
-          </div>
-        </fieldset>
-      </form>
-       <!-- create empty current weather section to add data to once user enters search input -->
-      <div class ='col-7 h-100'>
-        <div class="current-weather card border-secondary my-5 p-3 h-25">
-        <div id="main-card-header" class="card-header p-3 bg-info text-light"></div>
-        <div id="main-card" class="card-body " style="list-style: none"> 
-          <img id="icon"/>
-          <li id="temp"></li>
-          <li id="humidity"></li>
-          <li id="wind"></li>
+        <form class="col-12 p-5" id="search-form">
+            <fieldset>
+                <legend>Search for a City:</legend>
+                <div>
+                    <input autocomplete="off" type="text" id="TextInput" class="form-control" placeholder="City Name" />
+                </div>
+                <button id="search-btn" type="submit" class="btn btn-info col-12 my-3">
+                    Search
+                </button>
+                <div id="past-searches">
+                    <h4 class="text-info text-center">History</h4>
+                </div>
+            </fieldset>
+        </form>
+        <!-- create empty current weather section to add data to once user enters search input -->
+        <div class="col-7 h-100">
+            <div class="current-weather card border-secondary my-5 p-3 h-25">
+                <div id="main-card-header" class="card-header p-3 bg-info text-light"></div>
+                <div id="main-card" class="card-body" style="list-style: none">
+                    <img id="icon" />
+                    <li id="temp"></li>
+                    <li id="humidity"></li>
+                    <li id="wind"></li>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-      <!-- create empty forecast section to add data and elements to once user enters search input -->
-    <div class="w-100 m-3">
-        <h2 class="forecast-title text-info"></h2>
-        <div id ='forecast' class="d-flex row p-3 h-100 ">
-    </div>
-    </div>
-
-    
+        <!-- create empty forecast section to add data and elements to once user enters search input -->
+        <div class="w-100 m-3">
+            <h2 class="forecast-title text-info"></h2>
+            <div id="forecast" class="d-flex row p-3 h-100"></div>
+        </div>
     </main>
     <!-- add dayjs -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <!-- add fontawesome -->
     <script src="https://kit.fontawesome.com/a84498ba94.js" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>

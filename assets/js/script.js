@@ -49,6 +49,7 @@ var getApi = function (city) {
         return response.json()
     })
     .then(function(data){
+        console.log("Data: ", data)
         var searchForm = document.getElementById('search-form');
         // add class col-md so that search form shrinks and allows room for results
         searchForm.classList.add('col-md')

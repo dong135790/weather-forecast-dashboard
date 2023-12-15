@@ -17,7 +17,7 @@ var displayPastSearches = function () {
         var pastSearchBtn = document.createElement('button');
         pastSearchBtn.textContent = city[i];
         pastSearchBtn.value = city[i];
-        pastSearchBtn.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-success');
+        pastSearchBtn.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-info');
         pastSearchesEl.appendChild(pastSearchBtn);
     }
 }
@@ -32,7 +32,7 @@ var addToPastSearches = function (input) {
     var newPastSearch = document.createElement('button');
         newPastSearch.textContent = input;
         newPastSearch.value = input;
-        newPastSearch.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-success');
+        newPastSearch.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-info');
         pastSearchesEl.appendChild(newPastSearch);
 }
 

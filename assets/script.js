@@ -1,292 +1,179 @@
-// Api Url and key for weather
-var weatherApiUrl = 'https://api.openweathermap.org';
-var weatherApiKey = '79026700d6d1fb2b065b0cdee07661c3';
-// Stores an array that includes all the names of the cities that were searched for.
-var locationHistory = {
+// set main cards initial display to none so it does not appear empty upon first loading page
+var currentWeather = document.querySelector('.current-weather');
+currentWeather.style.display = 'none';
+// create variable for section with forecast content
+var forecastEl = document.querySelector('#forecast');
+// set empty array to store all searched cities
+var cities = [] 
+var apiKey = "79026700d6d1fb2b065b0cdee07661c3" 
+// set var city to value of localstorage('city')
+var city = JSON.parse(localStorage.getItem('city'));
+// set var for div containing past search btns
+var pastSearchesEl = document.getElementById('past-searches');
 
-};
-
-// Query Selects the important id
-var searchForm = document.querySelector('#search-form');
-var searchInput = document.querySelector('#search-input');
-var historyContainer = document.querySelector('#history');
-var todayContainer = document.querySelector('#today');
-var forecastContainer = document.querySelector('#forecast');
-var forecastContainer1 = document.querySelector('#forecast-1');
-var historyButtonEl = document.querySelector('#historybuttons');
-
-
-var searchbtn = document.getElementById('searchBtn');
-
-// Searches up the location of a name and stores in local storage. Lat/Lon values are inside.
-function geoApi () {
-    var cityName = document.getElementById('search-input').value;
-    // buggies
-    console.log('Name,', cityName);
-    // Renders the city based on what was typed
-    var ApiUrl = weatherApiUrl + '/geo/1.0/direct?q=' + cityName +'&limit=1&appid=' + weatherApiKey;
-
-    fetch(ApiUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log('DATA', data)
-            // // logs lat/lon
-            // console.log(data[0].lat, data[0].lon);
-
-            locationHistory[data[0].name] = [data[0].lat, data[0].lon];
-            console.log('LocationHistory []', locationHistory);
-
-            // Create button and set its type to button (default is 'submit') so it won't refresh the screen
-            var buttonEl = document.createElement('button');
-            buttonEl.setAttribute('type', 'button');
-            buttonEl.setAttribute('class', 'bg-light border');
-
-            // Sets the button to city name
-            buttonEl.setAttribute('location', data[0].name)
-
-            buttonEl.textContent = data[0].name;
-
-            buttonEl.onclick = function () {
-                weatherApi(data[0].name)
-            }
-            historyContainer.append(buttonEl);
-
-            localStorage.setItem("Locations", JSON.stringify(locationHistory));
-            weatherApi(data[0].name);
-        });
+// create function to build buttons beneath search form with city name pulled from local storage
+var displayPastSearches = function () {
+    for( var i = 0; i < city.length; i++) {
+        var pastSearchBtn = document.createElement('button');
+        pastSearchBtn.textContent = city[i];
+        pastSearchBtn.value = city[i];
+        pastSearchBtn.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-primary');
+        pastSearchesEl.appendChild(pastSearchBtn);
+    }
 }
 
-function weatherApi (city) {
-    console.log(city)
-    var cityCoords = JSON.parse(localStorage.getItem("Locations"));
-    var lat = cityCoords[city][0];
-    var lon = cityCoords[city][1];
-    
-    console.log(cityCoords);
-    var api = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid=' + weatherApiKey + '&units=imperial';
+// add conditional so past searches are only displayed upon initial loading if var city exists in local storage
+if (city) {
+    displayPastSearches();
+}
 
-    console.log(api);
-    fetch(api)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {  
-            console.log(data)
-            function filterByID(item) {
-                return item.dt_txt.includes('12:00:00') 
-            }
-                
-            arrByID = data.list.filter(filterByID);
-            console.log(arrByID)
-            // let childrens = forecastContainer.firstElementChild;
-            // console.log(forecastContainer)
-            // console.log(childrens);
-            forecastContainer.innerHTML = "";
-            todayContainer.innerHTML = "";
-            console.log(data);
-            var date = dayjs().format('M/D/YYYY');
+// create function to add new cities to past search buttons using user input
+var addToPastSearches = function (input) {
+    var newPastSearch = document.createElement('button');
+        newPastSearch.textContent = input;
+        newPastSearch.value = input;
+        newPastSearch.setAttribute('class', 'past-search-btn w-100 my-1 btn btn-lg btn-primary');
+        pastSearchesEl.appendChild(newPastSearch);
+}
 
-            var todayDescription = data.list[0].weather[0].main
-            console.log(todayDescription)
-            var weatherIcon = data.list[0].weather[0].icon;
-            var todayTemperature = data.list[0].main.temp;
-            var todayHumidity = data.list[0].main.humidity;
-            var todayWindMph = data.list[3].wind.speed;
-            console.log(weatherIcon, todayTemperature, todayHumidity, todayWindMph);
+ // create function to fetch openweathermap current weather api 
+var getApi = function (city) {
+    var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey + "&units=imperial";
+
+    fetch(requestUrl)
+    .then(function(response) {  
+        // add conditional so if response.status is not found, it will alert user to enter in valid city name
+          if (response.status === 404) {
+            alert('Please enter valid City Name');
+        }
+        return response.json()
+    })
+    .then(function(data){
+        var searchForm = document.getElementById('search-form');
+        // add class col-md so that search form shrinks and allows room for results
+        searchForm.classList.add('col-md')
+        // set data.coord to var coord so the city's coordinates are saved 
+        var coord = data.coord; 
+        // set lon and lat to separate variables to be used with forecast api
+        var lon = coord.lon;
+        var lat = coord.lat;
+        var now = dayjs().format('MM-DD-YYYY');
+        var iconCode = data.weather[0].icon;
+        var iconEl = document.getElementById('icon');
+        iconEl.src = ( 'https://openweathermap.org/img/wn/' + iconCode + '.png');
+
+        // set textcontent for main card using data from api fetch
+        var tempEl = document.getElementById('temp');
+        var windEl = document.getElementById('wind');
+        var humidityEl = document.getElementById('humidity');
+        var mainCardHeader = document.getElementById('main-card-header');
+        tempEl.textContent = "Temp: " + data.main.temp +" °F ";
+        windEl.textContent = "Wind: " + data.wind.speed + ' MPH' ;
+        humidityEl.textContent = "Humidity: " + data.main.humidity + ' %';
+        mainCardHeader.textContent = data.name + ' ' + now;
+
+        // display currentWeather
+        currentWeather.style.display = null;
+        // call function to get forecast for next 5 days
+        getForecast(lat, lon);
+    })
+}
+
+var getForecast = function (lat, lon) {
+    // use coordinates from previous function to act as lat and lon for forecast api url
+    var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid="+ apiKey + "&units=imperial";
+    fetch(forecastApiUrl)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data){
+        buildForecast(data);
+    })
+}
+
+var buildForecast = function(data) {
+    // use for loop to build forecastCards using data from fetch request;start at 6 so data is pulled from 3pm each day; increment by 8 so that pulls data from around noon each day for five days
+    for (i=6; i <= data.list.length; i+=8) {
+        // set variables to use for textContent defined as data pulled from api at each index position i 
+        var forecastTemp = (data.list[i].main.temp);
+        var forecastHum = (data.list[i].main.humidity);
+        var forecastWind = (data.list[i].wind.speed);
+        var dataDate = (data.list[i].dt_txt);
+        var forecastIconCode = data.list[i].weather[0].icon;
+
+        // slice dataDate and rejoin in forecastDate so that format matches same format as 'now' variable in main card
+        var month = dataDate.slice(5, 7);
+        var day = dataDate.slice(8, 10);
+        var year = dataDate.slice(0, 4);
+        var forecastDate = month + '-' + day + '-' + year;
         
-            var todayDescriptionEl = document.createElement('p');
-            var iconEl = document.createElement('div')
-            var todayDate = document.createElement('p');
-            var temperatureEl = document.createElement('p');
-            var humidityEl = document.createElement('p');
-            var windEl = document.createElement('p');
+        // create card elements
+        var forecastTitle = document.querySelector('.forecast-title');
+        var forecastCard = document.createElement('div');
+        var cardEl = document.createElement('div');
+        var forecastHeader = document.createElement('div');
+        var forecastBody = document.createElement('div');
+        var forecastIcon = document.createElement('img');
+        var forecastListTemp = document.createElement('li');
+        var forecastListHum = document.createElement('li');
+        var forecastListWind = document.createElement('li');
 
+        // set class for card elements and utilize bootstrap styling
+        forecastCard.setAttribute('class', 'forecast-card col-12 col-md');
+        cardEl.setAttribute('class', 'card text-white bg-info');
+        forecastHeader.setAttribute("class","card-header");
+        forecastBody.setAttribute('class','card-body h-100 list-style-type-none');
+        // set icon src using specific icon code from data for each index position
+        forecastIcon.src =( 'https://openweathermap.org/img/wn/' + forecastIconCode + '.png');
 
-            todayContainer.appendChild(todayDate)
-            todayContainer.appendChild(todayDescriptionEl)
-            todayContainer.appendChild(iconEl);
-            todayContainer.appendChild(temperatureEl)
-            todayContainer.appendChild(humidityEl)
-            todayContainer.appendChild(windEl)
+        // set textcontent to display info defined in beginning of function 
+        forecastHeader.textContent = forecastDate;
+        forecastListHum.textContent = "Humidity: " + forecastHum + " %";
+        forecastListTemp.textContent = "Temp: " + forecastTemp + "°F";
+        forecastListWind.textContent = "Wind: " + forecastWind + " MPH";
+        forecastTitle.textContent= "5-Day Forecast:";
 
-            // iconEl.textContent = weatherIcon;
-            todayDescriptionEl.textContent = 'Current Weather Status: '+ todayDescription;
-            todayDate.textContent = date;
-            temperatureEl.textContent = todayTemperature +' Fahrenheit';
-            humidityEl.textContent = 'Humidity: '+todayHumidity+'%';
-            windEl.textContent = 'Wind: '+todayWindMph +' Mph';
-
-            console.log(arrByID)
-
-            // day 1
-            var forecastContainer1 = document.createElement('div');
-            forecastContainer1.setAttribute('id', 'forecast-1');
-            forecastContainer1.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer1);
-
-            var oneHumid = arrByID[0].main.humidity;
-            var weatherDate1 = arrByID[0].dt_txt.split(" ");
-            var oneDate = weatherDate1[0];
-            console.log(oneDate)
-            var oneWeatherDescription = arrByID[0].weather[0].description
-            var oneWeatherTemp = arrByID[0].main.temp;
-            var oneWeatherWind = arrByID[0].wind.speed;
-
-            var oneHumidEl = document.createElement('p')
-            var onedateEl = document.createElement('p')
-            var oneForecastDescriptionEl = document.createElement('p')
-            var oneWeatherTempEl = document.createElement('p')
-            var oneWeatherWindEl = document.createElement('p')
-
-            oneHumidEl.textContent = 'Humidity: '+oneHumid+'%';
-            onedateEl.textContent = oneDate;
-            oneForecastDescriptionEl.textContent = oneWeatherDescription
-            oneWeatherTempEl.textContent = oneWeatherTemp + ' Fahrenheit'
-            oneWeatherWindEl.textContent = 'Wind: '+oneWeatherWind + ' Mph';
-
-            forecastContainer1.appendChild(onedateEl);
-            forecastContainer1.appendChild(oneForecastDescriptionEl)
-            forecastContainer1.appendChild(oneWeatherTempEl)
-            forecastContainer1.appendChild(oneHumidEl)
-            forecastContainer1.appendChild(oneWeatherWindEl)
-
-            // Day 2
-
-            var forecastContainer2 = document.createElement('div');
-            forecastContainer2.setAttribute('id', 'forecast-2');
-            forecastContainer2.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer2);
-
-            var twoHumid = arrByID[1].main.humidity;
-            var weatherDate2 = arrByID[1].dt_txt.split(" ");
-            var twoDate = weatherDate2[0];
-            var twoWeatherDescription = arrByID[1].weather[0].description
-            var twoWeatherTemp = arrByID[1].main.temp;
-            var twoWeatherWind = arrByID[1].wind.speed;
-
-            var twoHumidEl = document.createElement('p')
-            var twodateEl = document.createElement('p')
-            var twoForecastDescriptionEl = document.createElement('p')
-            var twoWeatherTempEl = document.createElement('p')
-            var twoWeatherWindEl = document.createElement('p')
-
-            twoHumidEl.textContent = 'Humidity: '+twoHumid+'%'
-            twodateEl.textContent = twoDate;
-            twoForecastDescriptionEl.textContent = twoWeatherDescription
-            twoWeatherTempEl.textContent = twoWeatherTemp + ' Fahrenheit'
-            twoWeatherWindEl.textContent = 'Wind: '+twoWeatherWind + ' Mph';
-
-            forecastContainer2.appendChild(twodateEl);
-            forecastContainer2.appendChild(twoForecastDescriptionEl)
-            forecastContainer2.appendChild(twoWeatherTempEl)
-            forecastContainer2.appendChild(twoHumidEl)
-            forecastContainer2.appendChild(twoWeatherWindEl)
-
-            // Day 3
-            var forecastContainer3 = document.createElement('div');
-            forecastContainer3.setAttribute('id', 'forecast-3');
-            forecastContainer3.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer3);
-
-            var threeHumid = arrByID[2].main.humidity;
-            var weatherDate3 = arrByID[2].dt_txt.split(" ");
-            var threeDate = weatherDate3[0];
-            var threeWeatherDescription = arrByID[2].weather[0].description
-            var threeWeatherTemp = arrByID[2].main.temp;
-            var threeWeatherWind = arrByID[2].wind.speed;
-
-            var threeHumidEl = document.createElement('p')
-            var threedateEl = document.createElement('p')
-            var threeForecastDescriptionEl = document.createElement('p')
-            var threeWeatherTempEl = document.createElement('p')
-            var threeWeatherWindEl = document.createElement('p')
-
-            threeHumidEl.textContent = 'Humidity: '+threeHumid+'%';
-            threedateEl.textContent = threeDate;
-            threeForecastDescriptionEl.textContent = threeWeatherDescription
-            threeWeatherTempEl.textContent = threeWeatherTemp + ' Fahrenheit'
-            threeWeatherWindEl.textContent = 'Wind: '+threeWeatherWind + ' Mph';
-
-            forecastContainer3.appendChild(threedateEl);
-            forecastContainer3.appendChild(threeForecastDescriptionEl)
-            forecastContainer3.appendChild(threeWeatherTempEl)
-            forecastContainer3.appendChild(threeHumidEl)
-            forecastContainer3.appendChild(threeWeatherWindEl)
-
-            // Day 4
-            var forecastContainer4 = document.createElement('div');
-            forecastContainer4.setAttribute('id', 'forecast-4');
-            forecastContainer4.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer4);
-
-            var fourHumid = arrByID[3].main.humidity;
-            var weatherDate4 = arrByID[3].dt_txt.split(" ");
-            var fourDate = weatherDate4[0];
-            var fourWeatherDescription = arrByID[3].weather[0].description
-            var fourWeatherTemp = arrByID[3].main.temp;
-            var fourWeatherWind = arrByID[3].wind.speed;
-
-            var fourHumidEl = document.createElement('p')
-            var fourdateEl = document.createElement('p')
-            var fourForecastDescriptionEl = document.createElement('p')
-            var fourWeatherTempEl = document.createElement('p')
-            var fourWeatherWindEl = document.createElement('p')
-
-            fourHumidEl.textContent = 'Humidity: '+fourHumid+'%'
-            fourdateEl.textContent = fourDate;
-            fourForecastDescriptionEl.textContent = fourWeatherDescription
-            fourWeatherTempEl.textContent = fourWeatherTemp + ' Fahrenheit'
-            fourWeatherWindEl.textContent = 'Wind: '+fourWeatherWind + ' Mph';
-
-            forecastContainer4.appendChild(fourdateEl);
-            forecastContainer4.appendChild(fourForecastDescriptionEl)
-            forecastContainer4.appendChild(fourWeatherTempEl)
-            forecastContainer4.appendChild(fourHumidEl)
-            forecastContainer4.appendChild(fourWeatherWindEl)
-
-
-            // Day 5
-            var forecastContainer5 = document.createElement('div');
-            forecastContainer5.setAttribute('id', 'forecast-5');
-            forecastContainer5.setAttribute('class', 'border border-3');
-            forecastContainer.appendChild(forecastContainer5);
-
-
-            var weatherDate5 = arrByID[4].dt_txt.split(" ");
-            var fiveHumid = arrByID[4].main.humidity;
-            var fiveDate = weatherDate5[0];
-            var fiveWeatherDescription = arrByID[4].weather[0].description
-            var fiveWeatherTemp = arrByID[4].main.temp;
-            var fiveWeatherWind = arrByID[4].wind.speed;
-
-            var fiveHumidEl = document.createElement('p')
-            var fivedateEl = document.createElement('p')
-            var fiveForecastDescriptionEl = document.createElement('p')
-            var fiveWeatherTempEl = document.createElement('p')
-            var fiveWeatherWindEl = document.createElement('p')
-
-            fiveHumidEl.textContent = 'Humidity: '+fiveHumid +'%'
-            fivedateEl.textContent = fiveDate;
-            fiveForecastDescriptionEl.textContent = fiveWeatherDescription
-            fiveWeatherTempEl.textContent = fiveWeatherTemp + ' Fahrenheit'
-            fiveWeatherWindEl.textContent = 'Wind: '+fiveWeatherWind + ' Mph';
-
-            forecastContainer5.appendChild(fivedateEl);
-            forecastContainer5.appendChild(fiveForecastDescriptionEl)
-            forecastContainer5.appendChild(fiveWeatherTempEl)
-            forecastContainer5.appendChild(fiveHumidEl)
-            forecastContainer5.appendChild(fiveWeatherWindEl)
-
-        });
+        // append elements to forecastEl section of html 
+        forecastEl.appendChild(forecastCard);
+        forecastCard.appendChild(cardEl);
+        cardEl.appendChild(forecastHeader);
+        cardEl.appendChild(forecastBody);
+        forecastBody.appendChild(forecastListTemp);
+        forecastBody.appendChild(forecastListHum);
+        forecastBody.appendChild(forecastListWind);
+        forecastHeader.appendChild(forecastIcon);
+    }
 }
 
-function localHistory () {
-    console.log('hello')
-    var searchInput = document.querySelector('#search-input').value;
-    locationHistory.push(searchInput)
-    console.log(searchInput)
-    console.log(locationHistory)
+// create function to clear content of forecast cards upon new searches
+var clearForecastEl = function(){
+      // clear out forecast cards from screen if user searches while cards are already present on the screen 
+      if (document.querySelector('.forecast-card')){
+        forecastEl.innerHTML = null;
+    }
+}
+  
+// add event listener to search-btn to prevent default, set user input to local storage, call getApi using input and add input to past searches
+document.getElementById('search-btn').addEventListener('click', function(event){
+    event.preventDefault();
+    // set textinput value to var input using DOM
     
-}
+    var input = document.getElementById('TextInput').value;
+    // push input to cities array 
+    cities.push(input);
+    // use cities array to store searched cities in local storage with key 'city'
+    localStorage.setItem('city', JSON.stringify(cities));
+    // call getApi function using currentcity
+    clearForecastEl();
+    getApi(input);
+    // call function to add user input to past search buttons
+    addToPastSearches(input);
+})
+
+// add event listener to pastSearchesEl to use value of button as input for getApi
+pastSearchesEl.addEventListener('click', function(event){
+    event.preventDefault();
+    clearForecastEl();
+    getApi(event.target.value);
+})
+

@@ -1,40 +1,27 @@
-#  Weather Dashboard
+# weather-dashboard
+## Description
+The goal of this application is to create an interactive Weather Forecast Dashboard. This application utilizes HTML, DayJS, Javascript, Bootstrap CSS, local storage, and server-side APIs to achieve the following requirements: 
 
-## Description 
+- A dashboard that displays the search engine after loading
+- Previous searched history will be displayed and stored via local storage.
+- A main card that presents user with the city they are searching, the current date, a list of weather conditions with a matching icon
+- Five cards represent future weather conditions that display a forecast including the date, weather conditions, and icon
+## Deployed Application
 
-    A simple weather web browser that displays the current date and weather for the corresponding city that was inputed into the field. All inputed text will be converted to 'word', so each first letter of each word will be capitalized to prevent errors. 
+### URL
+[Weather Dashboard](https://dong135790.github.io/weather-forecast-dashboard/)
 
-## Badges
-
-NA
-
-## Visuals
-![Alt text](weather-forecast.png)
-## Installation
-
-NA 
+### Screenshot
+![Deployed Application Screenshot](./assets/images/weather-dashboard-screenshot.png)
 ## Usage
-
-    Weather forecast dashboard currently displays the current date and includes temperature (in fahrenheit), humidit, and wind in mph.
-## Roadmap
-
-    Implement icons so there can be visual representations of the weather at the time. 
-## Contributing
-
-Not currently open to contributions at this time.
-
-## Authors and acknowledgement
-
-Justin Dong
-## License
-
-NA
+- To enter a city name, click on the text input field and type in valid city name
+- To search for city, click search button below input field
+- To search for a city in your past searches, click on the corresponding button with the city name
 
 ## Resources
 
-[Github Repository](https://github.com/dong135790/weather-forecast-dashboard)
-[Deployed Site](https://dong135790.github.io/weather-forecast-dashboard/)
+[Bootswatch Theme Cerulean](https://bootswatch.com/cerulean/)
 
-## Project Status
+[Open Weather Map Current Weather Data API](https://openweathermap.org/current)
 
-~~~~
+[Open Weather Map Forecast API](https://openweathermap.org/forecast5)
